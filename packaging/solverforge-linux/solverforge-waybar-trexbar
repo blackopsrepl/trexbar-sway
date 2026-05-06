@@ -1,0 +1,27 @@
+#!/bin/bash
+
+config_path="${TREXBAR_SWAY_CONFIG:-$HOME/.config/trexbar-sway/config.json}"
+trexbar_cmd="${TREXBAR_SWAY_BIN:-$HOME/.local/bin/trexbar-sway}"
+
+if [[ ! -x "$trexbar_cmd" ]] && command -v trexbar-sway &>/dev/null; then
+    trexbar_cmd="$(command -v trexbar-sway)"
+fi
+
+if [[ ! -x "$trexbar_cmd" ]]; then
+    exit 0
+fi
+
+case "${1:-render}" in
+    render)
+        exec "$trexbar_cmd" waybar render --config "$config_path"
+        ;;
+    panel|details|open)
+        exec "$trexbar_cmd" waybar panel --config "$config_path"
+        ;;
+    refresh)
+        exec "$trexbar_cmd" refresh --config "$config_path"
+        ;;
+    *)
+        exec "$trexbar_cmd" waybar render --config "$config_path"
+        ;;
+esac
