@@ -6,6 +6,8 @@
 
 `trexbar-sway` is a read-only Sway/Waybar companion for `trex`. It uses `trex snapshot --json` as the backend contract, caches runtime state in Ruby, renders a compact Waybar chip, and opens a focused QuickShell modal.
 
+![trexbar-sway modal screenshot](assets/trexbar-sway-screenshot.png)
+
 V1 does not attach, switch, create, delete, or detach tmux sessions.
 
 ## Dependency
