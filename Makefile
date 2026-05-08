@@ -23,7 +23,7 @@ check-trex:
 
 install-user:
 	mkdir -p "$(APP_HOME)" "$(BIN_DIR)"
-	cp -R bin lib frontend docs packaging assets README.md AGENTS.md Makefile "$(APP_HOME)/"
+	cp -R bin lib frontend docs packaging assets README.md WIREFRAME.md AGENTS.md Makefile "$(APP_HOME)/"
 	ln -sf "$(APP_HOME)/bin/trexbar-sway" "$(BIN_DIR)/trexbar-sway"
 	chmod +x "$(APP_HOME)/bin/trexbar-sway"
 

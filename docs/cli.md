@@ -16,3 +16,12 @@ Global flags:
 - `--format json|text`
 - `--pretty`
 - `--once`
+
+Behavior notes:
+
+- `snapshot` refreshes cached state and always prints JSON.
+- `refresh` refreshes cached state and prints JSON only with `--format json`.
+- `daemon --once` performs one refresh and exits.
+- `waybar render` reads cached state only.
+- `waybar refresh` refreshes cached state.
+- `waybar panel` opens the QuickShell modal.

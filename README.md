@@ -25,11 +25,25 @@ trexbar-sway config init
 trexbar-sway config validate
 trexbar-sway refresh --format json --pretty
 trexbar-sway daemon
+trexbar-sway daemon --once
+trexbar-sway snapshot
+trexbar-sway ui toggle
 trexbar-sway waybar render
+trexbar-sway waybar refresh
+trexbar-sway waybar panel
 trexbar-sway panel
 ```
 
 Use `make check-trex` to verify the backend dependency from this checkout.
+
+## Documentation
+
+- `WIREFRAME.md`: shipped Waybar chip, QuickShell modal, CLI, state files, and wrapper contract.
+- `docs/architecture.md`: runtime layers and backend boundary.
+- `docs/cli.md`: command surface and global flags.
+- `docs/runtime-contracts.md`: config, cached state, and Waybar JSON contracts.
+- `docs/ui.md`: compact UI summary.
+- `docs/installation.md`: user install and SolverForge Linux wrapper install.
 
 ## Runtime Files
 
