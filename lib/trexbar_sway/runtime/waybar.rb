@@ -31,7 +31,7 @@ module TrexbarSway
         end
 
         stale = State.stale?(snapshot, config, now)
-        view = Presenter.build_snapshot_view(snapshot, stale: stale)
+        view = Presenter.build_snapshot_view(snapshot, stale: stale, max_sessions: config.dig(:display, :maxSessions))
         chip = view[:chip] || {}
 
         {

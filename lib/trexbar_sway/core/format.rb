@@ -19,14 +19,14 @@ module TrexbarSway
         pieces.join(" ")
       end
 
-      def tooltip_lines(snapshot, stale: false)
+      def tooltip_lines(snapshot, stale: false, max_sessions: 8)
         summary = snapshot[:summary] || {}
         lines = []
         lines << "trexbar-sway#{stale ? ' (stale)' : ''}"
         lines << "Sessions: #{summary[:sessionCount].to_i} | Attached: #{summary[:attachedCount].to_i} | Agents: #{summary[:agentCount].to_i}"
         lines << "Activity: #{summary[:activeCount].to_i} active, #{summary[:idleCount].to_i} idle, #{summary[:dormantCount].to_i} dormant"
 
-        Array(snapshot[:sessions]).first(8).each do |session|
+        Array(snapshot[:sessions]).first(max_sessions.to_i).each do |session|
           detail = [session[:name], session.dig(:health, :level), stat_text(session), git_text(session)].compact.join(" | ")
           lines << detail
         end

@@ -42,7 +42,7 @@ module TrexbarSway
         write_state_event(config)
       end
 
-      def build_snapshot(_config, backend_snapshot, now = Time.now.utc)
+      def build_snapshot(config, backend_snapshot, now = Time.now.utc)
         snapshot = {
           snapshotVersion: SNAPSHOT_VERSION,
           generatedAt: now.iso8601,
@@ -53,7 +53,7 @@ module TrexbarSway
           agents: Array(backend_snapshot[:agents]),
           errors: Array(backend_snapshot[:errors])
         }
-        snapshot[:view] = Presenter.build_snapshot_view(snapshot, stale: false)
+        snapshot[:view] = Presenter.build_snapshot_view(snapshot, stale: false, max_sessions: config.dig(:display, :maxSessions))
         snapshot
       end
 
@@ -68,7 +68,7 @@ module TrexbarSway
           agents: [],
           errors: [{ code: "trex-backend-failed", message: message.to_s, context: nil }]
         }
-        snapshot[:view] = Presenter.build_snapshot_view(snapshot, stale: false)
+        snapshot[:view] = Presenter.build_snapshot_view(snapshot, stale: false, max_sessions: empty_summary[:sessionCount])
         snapshot
       end
 

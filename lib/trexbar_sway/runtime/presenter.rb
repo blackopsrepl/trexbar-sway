@@ -5,7 +5,7 @@ module TrexbarSway
     module Presenter
       module_function
 
-      def build_snapshot_view(snapshot, stale:)
+      def build_snapshot_view(snapshot, stale:, max_sessions: 8)
         summary = snapshot[:summary] || {}
         sessions = Array(snapshot[:sessions])
         status = stale ? "stale" : snapshot[:status].to_s
@@ -15,7 +15,7 @@ module TrexbarSway
         {
           chip: {
             text: Core::Format.chip_text(summary, status),
-            tooltipLines: Core::Format.tooltip_lines(snapshot, stale: stale),
+            tooltipLines: Core::Format.tooltip_lines(snapshot, stale: stale, max_sessions: max_sessions),
             classes: classes
           },
           summary: summary,
