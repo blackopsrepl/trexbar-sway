@@ -285,13 +285,105 @@ ShellRoot {
                             border.width: 1
                             radius: 8
 
-                            Text {
-                                anchors.centerIn: parent
-                                text: "TRX"
-                                color: "#82FB9C"
-                                font.family: root.textFont
-                                font.pixelSize: 14
-                                font.bold: true
+                            Canvas {
+                                anchors.fill: parent
+                                anchors.margins: 5
+
+                                onPaint: {
+                                    var ctx = getContext("2d")
+                                    ctx.clearRect(0, 0, width, height)
+
+                                    function x(value) { return value * width / 38 }
+                                    function y(value) { return value * height / 38 }
+
+                                    ctx.lineCap = "round"
+                                    ctx.lineJoin = "round"
+
+                                    ctx.strokeStyle = "rgba(130, 251, 156, 0.28)"
+                                    ctx.lineWidth = Math.max(1, x(1.1))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(28), y(5))
+                                    ctx.lineTo(x(36), y(2))
+                                    ctx.moveTo(x(31), y(10))
+                                    ctx.lineTo(x(37), y(9))
+                                    ctx.stroke()
+
+                                    ctx.fillStyle = "#05080F"
+                                    ctx.strokeStyle = "#82FB9C"
+                                    ctx.lineWidth = Math.max(1, x(1.7))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(33), y(12))
+                                    ctx.bezierCurveTo(x(28), y(6), x(17), y(5), x(9), y(10))
+                                    ctx.bezierCurveTo(x(2), y(14), x(2), y(19), x(9), y(22))
+                                    ctx.lineTo(x(22), y(22))
+                                    ctx.quadraticCurveTo(x(19), y(26), x(15), y(27))
+                                    ctx.bezierCurveTo(x(24), y(28), x(30), y(31), x(33), y(36))
+                                    ctx.lineTo(x(37), y(36))
+                                    ctx.quadraticCurveTo(x(34), y(28), x(35), y(22))
+                                    ctx.quadraticCurveTo(x(39), y(17), x(33), y(12))
+                                    ctx.closePath()
+                                    ctx.fill()
+                                    ctx.stroke()
+
+                                    ctx.strokeStyle = "#26304A"
+                                    ctx.lineWidth = Math.max(1, x(1))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(9), y(22))
+                                    ctx.quadraticCurveTo(x(15), y(24), x(22), y(22))
+                                    ctx.stroke()
+
+                                    ctx.fillStyle = "#DDF7FF"
+                                    var teeth = [9, 13, 17]
+                                    for (var i = 0; i < teeth.length; i++) {
+                                        ctx.beginPath()
+                                        ctx.moveTo(x(teeth[i]), y(22))
+                                        ctx.lineTo(x(teeth[i] + 1.8), y(22))
+                                        ctx.lineTo(x(teeth[i] + 0.8), y(25))
+                                        ctx.closePath()
+                                        ctx.fill()
+                                    }
+
+                                    ctx.fillStyle = "#82FB9C"
+                                    ctx.strokeStyle = "#DDF7FF"
+                                    ctx.lineWidth = Math.max(1, x(0.8))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(20), y(13))
+                                    ctx.lineTo(x(26), y(11))
+                                    ctx.lineTo(x(30), y(14))
+                                    ctx.lineTo(x(25), y(17))
+                                    ctx.lineTo(x(20), y(15))
+                                    ctx.closePath()
+                                    ctx.fill()
+                                    ctx.stroke()
+
+                                    ctx.strokeStyle = "#05080F"
+                                    ctx.lineWidth = Math.max(1, x(1.5))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(25.5), y(12.4))
+                                    ctx.lineTo(x(24.3), y(16.4))
+                                    ctx.stroke()
+
+                                    ctx.strokeStyle = "#82FB9C"
+                                    ctx.lineWidth = Math.max(1, x(1.5))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(18), y(10))
+                                    ctx.lineTo(x(27), y(8))
+                                    ctx.stroke()
+
+                                    ctx.fillStyle = "#6A6E95"
+                                    ctx.beginPath()
+                                    ctx.arc(x(7.5), y(15.4), Math.max(1, x(1.1)), 0, Math.PI * 2)
+                                    ctx.fill()
+
+                                    ctx.strokeStyle = "#9CF7C2"
+                                    ctx.lineWidth = Math.max(1, x(1.1))
+                                    ctx.beginPath()
+                                    ctx.moveTo(x(31), y(24))
+                                    ctx.lineTo(x(35), y(27))
+                                    ctx.moveTo(x(29), y(29))
+                                    ctx.lineTo(x(33), y(34))
+                                    ctx.stroke()
+                                }
                             }
                         }
 

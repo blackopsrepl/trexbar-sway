@@ -104,7 +104,7 @@ Top-level layout:
 Full-screen transparent overlay
 
                          +-----------------------------------------------+
-                         | TRX  trexbar                     healthy      |
+                         | T-rex mark  trexbar              healthy      |
                          |      <headline session/meta>     [Refresh]    |
                          |      <snapshot generatedAt>      [Close]      |
                          +-----------------------------------------------+
@@ -125,7 +125,7 @@ Full-screen transparent overlay
 
 Header:
 
-- fixed `TRX` mark
+- fixed manga-like Tyrannosaurus mark
 - title text `trexbar`
 - headline session chosen by highest health severity, CPU, memory, and attached state
 - snapshot `generatedAt`
