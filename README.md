@@ -38,6 +38,17 @@ trexbar-sway panel
 
 Use `make check-trex` to verify the backend dependency from this checkout.
 
+## Desktop Autostart
+
+`trexbar-sway` has two separate runtime pieces:
+
+- `trexbar-sway daemon --config ~/.config/trexbar-sway/config.json` refreshes `trex snapshot --json`, tmux, process, git, and resource state, then writes `snapshot.json`.
+- `trexbar-sway waybar render --config ~/.config/trexbar-sway/config.json` reads that cached snapshot and returns Waybar JSON.
+
+Waybar does not poll `trex`, tmux, `/proc`, or git by itself. If the daemon is not running after login or reboot, the Waybar chip can keep rendering, but it will render stale cached state. A desktop integration should therefore start and supervise the daemon at session startup.
+
+On SolverForge Linux, the managed Waybar integration starts companion daemons through `solverforge-waybar-companions-start`, launched from Sway `exec_always` beside Waybar. That launcher restarts `trexbar-sway daemon` if an early boot-time refresh failure makes it exit.
+
 ## Documentation
 
 - `WIREFRAME.md`: shipped Waybar chip, QuickShell modal, CLI, state files, and wrapper contract.
