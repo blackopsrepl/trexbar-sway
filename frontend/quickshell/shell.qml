@@ -53,6 +53,16 @@ ShellRoot {
         return root.statusColor(session && session.health ? session.health.level : "unknown")
     }
 
+    function agentStatusColor(state) {
+        if (state === "running") {
+            return "#82FB9C"
+        }
+        if (state === "waiting") {
+            return "#F2C572"
+        }
+        return "#6A6E95"
+    }
+
     function gitText(session) {
         if (!session || !session.git || !session.git.isRepo) {
             return "no git"
@@ -218,6 +228,52 @@ ShellRoot {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: parent.clicked()
+        }
+    }
+
+    component AgentPill: Rectangle {
+        property var agent: null
+
+        implicitHeight: 28
+        implicitWidth: pillContent.implicitWidth + 24
+        color: pillArea.containsMouse ? Qt.rgba(130/255, 251/255, 156/255, 0.05) : "#151927"
+        border.color: pillArea.containsMouse ? "#82FB9C" : "#2E344A"
+        border.width: 1
+        radius: 14
+
+        RowLayout {
+            id: pillContent
+            anchors.centerIn: parent
+            spacing: 8
+
+            Rectangle {
+                Layout.preferredWidth: 8
+                Layout.preferredHeight: 8
+                radius: 4
+                color: root.agentStatusColor(agent ? agent.activityState : "unknown")
+            }
+
+            Text {
+                text: agent ? (agent.processName + " / " + agent.projectName) : "unknown"
+                color: "#DDF7FF"
+                font.family: root.textFont
+                font.pixelSize: 11
+                font.bold: true
+            }
+
+            Text {
+                visible: agent && agent.childAiNames && agent.childAiNames.length > 0
+                text: agent ? ("(" + agent.childAiNames.length + ")") : ""
+                color: "#6A6E95"
+                font.family: root.textFont
+                font.pixelSize: 10
+            }
+        }
+
+        MouseArea {
+            id: pillArea
+            anchors.fill: parent
+            hoverEnabled: true
         }
     }
 
@@ -595,33 +651,77 @@ ShellRoot {
                         }
                     }
 
-                    RowLayout {
+                    ColumnLayout {
                         visible: root.agents.length > 0 || root.errors.length > 0
                         Layout.fillWidth: true
-                        spacing: 10
+                        spacing: 12
 
-                        Text {
-                            Layout.fillWidth: true
+                        ColumnLayout {
                             visible: root.agents.length > 0
-                            text: "agents  " + root.agents.map(function(agent) {
-                                return agent.processName + " / " + agent.projectName
-                            }).join("    ")
-                            color: "#F2C572"
-                            font.family: root.textFont
-                            font.pixelSize: 11
-                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                            spacing: 6
+
+                            Text {
+                                text: "ACTIVE AGENTS"
+                                color: "#6A6E95"
+                                font.family: root.textFont
+                                font.pixelSize: 9
+                                font.bold: true
+                            }
+
+                            Flow {
+                                Layout.fillWidth: true
+                                spacing: 8
+
+                                Repeater {
+                                    model: root.agents
+                                    AgentPill {
+                                        agent: modelData
+                                    }
+                                }
+                            }
                         }
 
-                        Text {
-                            Layout.fillWidth: true
+                        ColumnLayout {
                             visible: root.errors.length > 0
-                            text: "errors  " + root.errors.map(function(error) {
-                                return error.message
-                            }).join("    ")
-                            color: "#E06C75"
-                            font.family: root.textFont
-                            font.pixelSize: 11
-                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                            spacing: 6
+
+                            Text {
+                                text: "BACKEND ERRORS"
+                                color: "#6A6E95"
+                                font.family: root.textFont
+                                font.pixelSize: 9
+                                font.bold: true
+                            }
+
+                            Flow {
+                                Layout.fillWidth: true
+                                spacing: 8
+
+                                Repeater {
+                                    model: root.errors
+                                    Rectangle {
+                                        implicitHeight: 26
+                                        implicitWidth: Math.min(errText.implicitWidth + 24, parent && parent.width > 0 ? parent.width : errText.implicitWidth + 24)
+                                        color: Qt.rgba(224/255, 108/255, 117/255, 0.1)
+                                        border.color: "#E06C75"
+                                        border.width: 1
+                                        radius: 13
+
+                                        Text {
+                                            id: errText
+                                            anchors.centerIn: parent
+                                            width: Math.max(0, parent.width - 24)
+                                            text: modelData.message
+                                            color: "#E06C75"
+                                            elide: Text.ElideRight
+                                            font.family: root.textFont
+                                            font.pixelSize: 11
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
