@@ -281,14 +281,25 @@ ShellRoot {
         id: modal
         visible: uiAdapter.open
         screen: Quickshell.screens.length ? Quickshell.screens[0] : null
+        property int verticalMargin: 18
+        implicitWidth: screen ? screen.width : 960
+        implicitHeight: screen ? screen.height : 760
+        color: "transparent"
+        focusable: true
+        aboveWindows: true
+        exclusionMode: ExclusionMode.Ignore
         anchors {
             top: true
             bottom: true
             left: true
             right: true
         }
-        color: "transparent"
-        focusable: true
+        margins {
+            top: 0
+            bottom: 0
+            left: 0
+            right: 0
+        }
 
         Shortcut {
             sequence: "Esc"
@@ -296,9 +307,14 @@ ShellRoot {
             onActivated: root.closeModal()
         }
 
-        Rectangle {
+        Item {
             anchors.fill: parent
-            color: Qt.rgba(0.02, 0.025, 0.045, 0.72)
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#050711"
+                opacity: 0.66
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -307,8 +323,8 @@ ShellRoot {
 
             Rectangle {
                 id: card
-                width: Math.min(980, Math.max(620, parent.width - 96))
-                height: parent.height - 96
+                width: Math.min(960, Math.max(320, modal.width - 36))
+                height: Math.min(modal.height - 16, Math.max(420, modal.height - (modal.verticalMargin * 2)))
                 anchors.centerIn: parent
                 color: "#0B0C16"
                 border.color: "#82FB9C"
