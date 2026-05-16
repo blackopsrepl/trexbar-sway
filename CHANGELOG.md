@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.2](///compare/v0.1.1...v0.1.2) (2026-05-16)
+
+
+### Features
+
+* **quickshell:** render structured footer chips bdcae3e
+
+
+### Bug Fixes
+
+* **quickshell:** match sibling modal geometry e40f8b0
+
 ## 0.1.2 (2026-05-16)
 
 
