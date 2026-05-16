@@ -119,7 +119,11 @@ Full-screen transparent overlay
                          | +-------------------------------------------+ |
                          | | ... scrollable session rows ...           | |
                          +-----------------------------------------------+
-                         | agents codex / trex    errors <if present>   |
+                         | ACTIVE AGENTS                                 |
+                         | [o codex/trex]  [o gemini/trex (2)]           |
+                         |                                               |
+                         | BACKEND ERRORS                                |
+                         | [! backend failed]                            |
                          +-----------------------------------------------+
 ```
 
@@ -155,8 +159,12 @@ Session list:
 Footer:
 
 - visible only when agents or errors exist
-- agents line displays `processName / projectName`
-- errors line displays backend error messages
+- uses a `ColumnLayout` to separate agents and errors
+- `ACTIVE AGENTS` section:
+  - renders agents as `AgentPill` components in a `Flow` layout (wraps to multiple lines)
+  - pill shows a status dot (running/waiting), `processName / projectName`, and sub-agent count
+- `BACKEND ERRORS` section:
+  - renders backend error messages as pill-shaped chips in a `Flow` layout
 
 ## State Files
 
